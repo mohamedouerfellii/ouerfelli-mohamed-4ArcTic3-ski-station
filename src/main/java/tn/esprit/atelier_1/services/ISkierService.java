@@ -9,4 +9,5 @@ public interface ISkierService {
     Skier addSkier(Skier skier);
     void removeSkier (Long numSkier);
     Skier retrieveSkier (Long numSkier);
+    Skier addSkierAndAssignToCourse(Skier skier, Long numCourse);
 }

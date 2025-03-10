@@ -1,5 +1,6 @@
 package tn.esprit.atelier_1.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ public class Registration implements Serializable {
     private Long numRegistration;
     private int numWeek;
     @ManyToOne
+    @JsonIgnore
     private Skier skier;
     @ManyToOne
     private Course course;

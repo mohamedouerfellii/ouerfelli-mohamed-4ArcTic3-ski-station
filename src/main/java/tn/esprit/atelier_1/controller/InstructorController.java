@@ -1,9 +1,8 @@
 package tn.esprit.atelier_1.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import tn.esprit.atelier_1.entity.Instructor;
 import tn.esprit.atelier_1.services.IInstructorService;
 
 @RestController
@@ -11,6 +10,12 @@ import tn.esprit.atelier_1.services.IInstructorService;
 @RequiredArgsConstructor
 public class InstructorController {
 
-    private IInstructorService instructorService;
-    
+    private final IInstructorService instructorService;
+
+    @PostMapping("add-instructor/{numCourse}")
+    public Instructor addInstructorAndAssignToCourse(
+            @RequestBody  Instructor instructor,
+            @PathVariable(name = "numCourse") Long numCourse) {
+        return instructorService.addInstructorAndAssignToCourse(instructor, numCourse);
+    }
 }

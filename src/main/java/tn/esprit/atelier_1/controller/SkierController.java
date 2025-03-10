@@ -35,5 +35,11 @@ public class SkierController {
         return ResponseEntity.ok().body("Skier deleted successfully");
     }
 
+    @PostMapping("add-skier-course/{numCourse}")
+    public Skier addSkierAndAssignToCourse(
+            @RequestBody  Skier skier, @PathVariable(name = "numCourse") Long numCourse
+    ){
+        return skierService.addSkierAndAssignToCourse(skier, numCourse);
+    }
 
 }

@@ -2,6 +2,7 @@ package tn.esprit.atelier_1.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,5 +29,6 @@ public class Piste implements Serializable {
     private int length;
     private int slope;
     @ManyToMany
+    @JsonIgnore
     private Set<Skier> skiers;
 }

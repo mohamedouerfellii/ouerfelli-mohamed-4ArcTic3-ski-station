@@ -23,7 +23,6 @@ public class Skier implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long numSkier;
-
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
@@ -32,6 +31,6 @@ public class Skier implements Serializable {
     private Set<Piste> pistes;
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Subscription subscription;
-    @OneToMany(mappedBy = "skier")
+    @OneToMany(mappedBy = "skier", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Registration> registrations;
 }

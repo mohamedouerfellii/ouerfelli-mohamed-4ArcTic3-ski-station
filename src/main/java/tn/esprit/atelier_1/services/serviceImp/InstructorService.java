@@ -32,7 +32,6 @@ public class InstructorService implements IInstructorService {
 
     @Override
     public Instructor addInstructorAndAssignToCourse(Instructor instructor, Long numCourse) {
-        instructor = addInstructor(instructor);
         Course course = courseRepository.findById(numCourse).orElse(null);
         if(course != null) {
             instructor.getCourses().add(course);
