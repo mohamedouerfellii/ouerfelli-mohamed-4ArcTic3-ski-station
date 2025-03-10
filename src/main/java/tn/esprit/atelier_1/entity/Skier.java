@@ -1,5 +1,8 @@
 package tn.esprit.atelier_1.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,7 +28,7 @@ public class Skier implements Serializable {
     private String lastName;
     private LocalDate dateOfBirth;
     private String city;
-    @ManyToMany
+    @ManyToMany(mappedBy = "skiers", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Piste> pistes;
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Subscription subscription;
