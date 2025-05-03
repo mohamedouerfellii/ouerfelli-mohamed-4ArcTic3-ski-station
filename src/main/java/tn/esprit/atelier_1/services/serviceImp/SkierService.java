@@ -1,6 +1,7 @@
 package tn.esprit.atelier_1.services.serviceImp;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import tn.esprit.atelier_1.entity.Course;
 import tn.esprit.atelier_1.entity.Piste;
@@ -14,6 +15,7 @@ import tn.esprit.atelier_1.repositories.SkierRepository;
 import tn.esprit.atelier_1.services.IRegistrationService;
 import tn.esprit.atelier_1.services.ISkierService;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -27,13 +29,16 @@ public class SkierService implements ISkierService {
     public List<Skier> retrieveAllSkiers() {
         return repository.findAll();
     }
+
     public Skier addSkier(Skier skier) {
         return repository.save(skier);
     }
-    public void removeSkier (Long numSkier) {
+
+    public void removeSkier(Long numSkier) {
         repository.deleteById(numSkier);
     }
-    public Skier retrieveSkier (Long numSkier) {
+
+    public Skier retrieveSkier(Long numSkier) {
         return repository.findById(numSkier).orElse(null);
     }
 

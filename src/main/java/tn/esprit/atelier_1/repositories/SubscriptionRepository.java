@@ -1,6 +1,7 @@
 package tn.esprit.atelier_1.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import tn.esprit.atelier_1.entity.Subscription;
 import tn.esprit.atelier_1.enums.TypeSubscription;
@@ -13,4 +14,7 @@ import java.util.Set;
 public interface SubscriptionRepository extends JpaRepository<Subscription, Long> {
     Set<Subscription> findAllByTypeSubscriptionOrderByStartDateDesc(TypeSubscription typeSubscription);
     List<Subscription> findAllByStartDateAndEndDate(LocalDate startDate, LocalDate endDate);
+
+    @Query("SELECT s FROM Subscription s WHERE s.endDate > CURRENT_DATE")
+    List<Subscription> findActiveSubscriptions();
 }
