@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.atelier_1.entity.Skier;
+import tn.esprit.atelier_1.enums.TypeSubscription;
 import tn.esprit.atelier_1.services.ISkierService;
 
 import java.util.List;
@@ -24,13 +25,13 @@ public class SkierController {
         return skierService.retrieveAllSkiers();
     }
 
-    @GetMapping("get-one-skier")
-    public Skier getSkier(@RequestParam Long numSkier) {
+    @GetMapping("get-one-skier/{numSkier}")
+    public Skier getSkier(@PathVariable("numSkier") Long numSkier) {
         return skierService.retrieveSkier(numSkier);
     }
 
-    @DeleteMapping("delete-skier")
-    public ResponseEntity<String> deleteSkier(@RequestParam Long numSkier) {
+    @DeleteMapping("delete-skier/{numSkier}")
+    public ResponseEntity<String> deleteSkier(@PathVariable("numSkier") Long numSkier) {
         skierService.removeSkier(numSkier);
         return ResponseEntity.ok().body("Skier deleted successfully");
     }
@@ -42,4 +43,17 @@ public class SkierController {
         return skierService.addSkierAndAssignToCourse(skier, numCourse);
     }
 
+    @PatchMapping("assign-skier-to-piste/{numSkier}/{numPiste}")
+    public Skier assignSkierToPiste(
+            @PathVariable("numSkier") Long numSkier,
+            @PathVariable("numPiste") Long numPiste) {
+        return skierService.assignSkierToPiste(numSkier, numPiste);
+    }
+
+    @GetMapping("get-skiers-by-subscription/{typeSubscription}")
+    public List<Skier> retrieveSkiersBySubscriptionType(
+            @PathVariable("typeSubscription") TypeSubscription typeSubscription
+            ) {
+        return skierService.retrieveSkiersBySubscriptionType(typeSubscription);
+    }
 }

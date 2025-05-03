@@ -31,13 +31,4 @@ public class PisteService implements IPisteService {
         return repository.findById(numPiste).orElse(null);
     }
 
-    public Piste assignSkierToPiste(Long numSkier, Long numPiste) {
-        Piste piste = repository.findById(numPiste).orElse(null);
-        Skier skier = skierRepository.findById(numSkier).orElse(null);
-        if(piste != null && skier != null) {
-            piste.getSkiers().add(skier);
-            return repository.save(piste);
-        }
-        return null;
-    }
 }

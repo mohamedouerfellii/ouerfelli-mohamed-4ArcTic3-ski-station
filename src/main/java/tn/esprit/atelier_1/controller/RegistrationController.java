@@ -19,4 +19,21 @@ public class RegistrationController {
     ) {
         return registrationService.addRegistrationAndAssignToSkier(registration, numSkier);
     }
+
+    @PatchMapping("assign-registration-to-course/{numRegistration}/{numCourse}")
+    public Registration addRegistrationAndAssignToSkier(
+            @PathVariable(name = "numRegistration") Long numRegistration,
+            @PathVariable(name = "numCourse") Long numCourse
+    ) {
+        return registrationService.assignRegistrationToCourse(numRegistration, numCourse);
+    }
+
+    @PostMapping("add-registration-assign-skier-course/{numSkier}/{numCourse}")
+    public Registration addRegistrationAndAssignToSkierAndCourse(
+            @RequestBody Registration registration,
+            @PathVariable("numSkier") Long numSkier,
+            @PathVariable("numCourse") Long numCourse
+    ) {
+        return registrationService.addRegistrationAndAssignToSkierAndCourse(registration, numSkier, numCourse);
+    }
 }

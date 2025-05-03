@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.atelier_1.entity.Course;
 import tn.esprit.atelier_1.entity.Instructor;
+import tn.esprit.atelier_1.enums.Support;
 import tn.esprit.atelier_1.repositories.CourseRepository;
 import tn.esprit.atelier_1.repositories.InstructorRepository;
 import tn.esprit.atelier_1.services.IInstructorService;
@@ -20,22 +21,32 @@ public class InstructorService implements IInstructorService {
     public List<Instructor> retrieveInstructors() {
         return repository.findAll();
     }
+
     public Instructor addInstructor(Instructor instructor) {
         return repository.save(instructor);
     }
-    public Instructor updateInstructor (Instructor instructor) {
+
+    public Instructor updateInstructor(Instructor instructor) {
         return repository.save(instructor);
     }
-    public Instructor retrieveInstructor (Long numInstructor) {
+
+    public Instructor retrieveInstructor(Long numInstructor) {
         return repository.findById(numInstructor).orElse(null);
     }
 
     @Override
     public Instructor addInstructorAndAssignToCourse(Instructor instructor, Long numCourse) {
-        Course course = courseRepository.findById(numCourse).orElse(null);
-        if(course != null) {
-            instructor.getCourses().add(course);
-        }
+        Course course = courseRepository.findById(numCourse).orElseThrow(
+                () -> new IllegalArgumentException("Course not found.")
+        );
+        instructor.getCourses().add(course);
         return repository.save(instructor);
+    }
+
+    @Override
+    public List<Integer> numWeeksCourseOfInstructorBySupport(
+            Long numInstructor, Support support
+    ) {
+        return repository.numWeeksCourseOfInstructorBySupport(numInstructor, support);
     }
 }

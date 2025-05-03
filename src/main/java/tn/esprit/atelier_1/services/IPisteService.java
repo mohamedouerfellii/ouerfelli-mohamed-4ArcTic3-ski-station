@@ -13,6 +13,4 @@ public interface IPisteService {
     Piste updatePiste(Piste piste);
 
     Piste retrievePiste(Long numPiste);
-
-    Piste assignSkierToPiste(Long numSkier, Long numPiste);
 }

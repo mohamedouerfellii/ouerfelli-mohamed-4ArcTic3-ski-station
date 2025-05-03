@@ -3,9 +3,12 @@ package tn.esprit.atelier_1.services.serviceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.atelier_1.entity.Course;
+import tn.esprit.atelier_1.entity.Piste;
 import tn.esprit.atelier_1.entity.Registration;
 import tn.esprit.atelier_1.entity.Skier;
+import tn.esprit.atelier_1.enums.TypeSubscription;
 import tn.esprit.atelier_1.repositories.CourseRepository;
+import tn.esprit.atelier_1.repositories.PisteRepository;
 import tn.esprit.atelier_1.repositories.RegistrationRepository;
 import tn.esprit.atelier_1.repositories.SkierRepository;
 import tn.esprit.atelier_1.services.IRegistrationService;
@@ -19,8 +22,7 @@ public class SkierService implements ISkierService {
 
     private final SkierRepository repository;
     private final CourseRepository courseRepository;
-    private final RegistrationRepository registrationRepository;
-    private final IRegistrationService registrationService;
+    private final PisteRepository pisteRepository;
 
     public List<Skier> retrieveAllSkiers() {
         return repository.findAll();
@@ -45,5 +47,22 @@ public class SkierService implements ISkierService {
                 }
         );
         return repository.save(skier);
+    }
+
+    @Override
+    public Skier assignSkierToPiste(Long numSkier, Long numPiste) {
+        Skier skier = repository.findById(numSkier).orElseThrow(
+                () -> new IllegalArgumentException("Skier not found.")
+        );
+        Piste piste = pisteRepository.findById(numPiste).orElseThrow(
+                () -> new IllegalArgumentException("Piste not found.")
+        );
+        skier.getPistes().add(piste);
+        return repository.save(skier);
+    }
+
+    @Override
+    public List<Skier> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription) {
+        return repository.findAllBySubscriptionTypeSubscription(typeSubscription);
     }
 }

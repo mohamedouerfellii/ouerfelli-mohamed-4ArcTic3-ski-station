@@ -1,8 +1,7 @@
 package tn.esprit.atelier_1.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import java.time.Period;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,9 +27,14 @@ public class Skier implements Serializable {
     private LocalDate dateOfBirth;
     private String city;
     @ManyToMany(mappedBy = "skiers", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JsonIgnore
     private Set<Piste> pistes;
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Subscription subscription;
     @OneToMany(mappedBy = "skier", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private Set<Registration> registrations;
+
+    public int getAge() {
+        return Period.between(dateOfBirth, LocalDate.now()).getYears();
+    }
 }

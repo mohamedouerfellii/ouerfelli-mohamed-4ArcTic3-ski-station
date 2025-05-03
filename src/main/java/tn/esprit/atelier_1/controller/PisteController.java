@@ -11,15 +11,4 @@ import tn.esprit.atelier_1.services.IPisteService;
 public class PisteController {
 
     private final IPisteService pisteService;
-
-
-
-
-    @PatchMapping("assign-skier-to-piste")
-    public Piste assignSkierToPiste(
-            @RequestParam Long numSkier,
-            @RequestParam Long numPiste
-    ) {
-        return pisteService.assignSkierToPiste(numSkier, numPiste);
-    }
 }
